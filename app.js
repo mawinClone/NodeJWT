@@ -3,6 +3,8 @@ require("./config/database").connect();
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const auth = require('./middleware/auth')
+
 const User = require("./models/user");
 const app = express();
 app.use(express.json());
@@ -92,5 +94,14 @@ app.post("/login", async (req, res) => {
     console.log(err);
   }
 });
+
+
+
+app.post("/welcome", auth, (req, res) =>{
+  res.status(200).send("welcome");
+})
+
+
+
 
 module.exports = app;
